@@ -7,6 +7,8 @@ Snippet aDate
 
 &date - обязательный параметр, дата - любой плейсхолдер: [+createdon+], [+pub_date+] и так далее
 
+&alterDate - дата как и date, только будет использоваться если &date содержит пустое значение.
+
 &tpl - чанк или @CODE; По умолчанию - '@CODE:[+day+].[+month+].[+year+] [+hour+].[+minute+].[+second+]'
 
 Доступны плейсхолдеры: [+day+] [+month+] [+year+] [+hour+] [+minute+] [+second+]
