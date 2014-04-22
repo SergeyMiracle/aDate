@@ -43,11 +43,11 @@ $langPath = 'assets/snippets/adate/lang/';
 
 $format = "%d.%m.%Y.%H.%M.%S";
 
-if (!empty($alterDate) && $alterDate > 0)
+if (!empty($date) && $date > 0)
 	{
-		$date = strftime($format,$alterDate);
-	}else{
 		$date = strftime($format,$date);
+	}else{
+		$date = strftime($format,$alterDate);
 	}
 
 $date = explode(".", $date);
