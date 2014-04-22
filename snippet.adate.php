@@ -2,10 +2,10 @@
 /*
 ** aDate - snippet
 **
-** example: [[aDate? &date=`[+createdon+]` &tpl=`news-date-Tpl` &monthFormat=`2` &Uppercase=`1`]]
+** example: [[aDate? &date=`[+pub_date+]` &alterDate=`[+createdon+]` &tpl=`news-date-Tpl` &monthFormat=`2` &Uppercase=`1` &lang=`en`]]
 **
 ** template: chunk or @CODE
-** &date parametre is required
+** &date or &alterDate parametre is required
 **
 */
 	
@@ -35,15 +35,21 @@ $Uppercase = isset($Uppercase) ? $Uppercase : 0;
 /* Month Format
 ** default is 1 - returns numeric value of the month
 ** 2 - returns the month name in format: 'January';
+** 3 - returns the month name in short format: 'Jan';
 */
 $monthFormat = isset($monthFormat) ? $monthFormat : 1;
-
-$shortMonth = isset($shortMonth) ? $shortMonth : 0;
 
 $langPath = 'assets/snippets/adate/lang/';
 
 $format = "%d.%m.%Y.%H.%M.%S";
-$date = strftime($format,$date);
+
+if (!empty($alterDate) && $alterDate > 0)
+	{
+		$date = strftime($format,$alterDate);
+	}else{
+		$date = strftime($format,$date);
+	}
+
 $date = explode(".", $date);
 
 $day =     $date[0];
@@ -56,14 +62,13 @@ $second =  $date[5];
 /* Month Format and Translation*/
 switch($monthFormat)
 {
-	case '2':
+	case 2:
 		require($langPath.$lang.'.php');
-		if ($shortMonth == 0)
-		{
-			$month = str_replace($numeric, $alfabetic, $month);
-		}else{
-			$month = str_replace($numeric, $alfabetic_short, $month);
-		}
+		$month = str_replace($numeric, $alfabetic, $month);
+	break;
+	case 3:
+		require($langPath.$lang.'.php');
+		$month = str_replace($numeric, $alfabetic_short, $month);
 	break;
 }
 
